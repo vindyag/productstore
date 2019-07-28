@@ -7,15 +7,23 @@ import java.util.List;
 
 import io.swagger.annotations.ApiOperation;
 import product.store.entity.Product;
+import product.store.service.ProductService;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequestMapping(produces = {APPLICATION_JSON_VALUE})
 @RestController
 public class ProductController {
 
-    @ApiOperation("Product API")
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @ApiOperation("Retrieve All Products in the System")
     @GetMapping(path = "products")
-    public List<Product> getProducts() throws RuntimeException {
-        throw new RuntimeException("Not Implemented yet... :(");
+    public List<Product> getProducts() {
+        return productService.getAllProducts();
     }
 }
