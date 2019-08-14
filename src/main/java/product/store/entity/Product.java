@@ -13,6 +13,7 @@ public class Product implements Serializable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    private String productCode;
 
     public long getId() {
         return id;
@@ -28,5 +29,13 @@ public class Product implements Serializable
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 }
