@@ -1,5 +1,6 @@
 package product.store.service;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,20 +29,16 @@ public class ProductService {
         return productRepository.findByProductCode(productcode);
     }
 
-    public Product createProduct( Product product){
+    public Product createProduct(Product product) {
         return productRepository.save(product);
     }
 
-     public boolean deleteProductByProductCode( Product product) {
-        boolean isDeleted = false;
+    public boolean deleteProductByProductId(Long productId) {
         try {
-            Product productToDelete = getProductByProductCode(product.getProductCode());
-            productRepository.delete(productToDelete);
-            isDeleted = true;
-        } catch (Exception exception) { //TODO: handling various exception types in a common error handler i.e:- IllegalArgumentException, DuplicateKeyException, EmptyResultDataAccessException etc..
-            isDeleted = false;
-            throw exception;
+            productRepository.deleteById(productId);
+            return true;
+        } catch (EmptyResultDataAccessException ex) {
         }
-        return isDeleted;
+        return false;
     }
 }
