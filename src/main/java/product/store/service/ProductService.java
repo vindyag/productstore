@@ -22,11 +22,11 @@ public class ProductService {
     }
 
     public Product getProductById(long id) {
-        return productRepository.findById(id);
+        return productRepository.findById(id).orElse(null);
     }
 
-    public Product getProductByProductCode(String productcode) {
-        return productRepository.findByProductCode(productcode);
+    public Product getProductByProductCode(String productCode) {
+        return productRepository.findByProductCode(productCode);
     }
 
     public Product createProduct(Product product) {
@@ -36,9 +36,9 @@ public class ProductService {
     public boolean deleteProductByProductId(Long productId) {
         try {
             productRepository.deleteById(productId);
-            return true;
         } catch (EmptyResultDataAccessException ex) {
+            return false;
         }
-        return false;
+        return true;
     }
 }
